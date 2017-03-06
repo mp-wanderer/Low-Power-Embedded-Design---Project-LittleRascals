@@ -32,3 +32,8 @@ The server would serve the front-end of the Web-App where parents can log-in to 
 
 ### Web Application
 ![web-app](https://github.com/berliarishabh/Low-Power-Embedded-Design---Project-LittleRascals/blob/master/Images/Web%20App.png?raw=true)
+
+### Mobile Application View
+![mobile-app-loc](https://github.com/berliarishabh/Low-Power-Embedded-Design---Project-LittleRascals/blob/master/Images/Mobile%20App-%20Location%20History.png?raw=true)
+
+![mobile-app-loc](https://github.com/berliarishabh/Low-Power-Embedded-Design---Project-LittleRascals/blob/master/Images/Mobile%20App-%20Map.png?raw=true)
