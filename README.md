@@ -1,5 +1,7 @@
 # Low-Power-Embedded-Design---Project-LittleRascals
 
+[Project can be found at this link!](littlerascals.informu.io)
+
 ####Objective:
 
 To develop a complete “Child Tracking Device” to help parents securely and effectively track their kids when they go out of the specified range.
