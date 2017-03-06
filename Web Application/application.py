@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
+# Authors: Rishabh and Shiva
 
 from flask import Flask, render_template, request, Markup, request, redirect, session
 import models as dbHandler
