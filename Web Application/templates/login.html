@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<!--[if IE 9]><html class="lt-ie10" lang="en" > <![endif]-->
+<html class="no-js" lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>littleRascals</title>
+
+  <!-- ** CSS ** -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.3/css/normalize.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.3/css/foundation.min.css" />
+  <link rel='stylesheet' href="http://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.css" />
+  <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Lato:300,400%7CRaleway:100,400,300,500,600,700%7COpen+Sans:400,500,600' />
+  <link rel='stylesheet' href="../static/index.css" />
+
+  <!-- ** JS ** -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+  <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.3/js/foundation.min.js"></script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBL3SOotmfY64xcFhvLHrbAo59X4d_qDqQ&callback=initMap"></script>
+  <script src="../static/index.js"></script>
+</head>
+
+<body>
+  <body>
+    <!-- ** Header ** -->
+    <div class="header row">
+      <div class="left large-3 columns">
+        <h1><img src="../static/assets/headerLogo.png"></h1>
+        <!-- <h1>littleRascals</h1> -->
+      </div>
+      <!--
+      <div class="right large-9 columns">
+        <ul class="nav button-group right">
+          <li><a href="/map" class="button">Map</a></li>
+          <li><a href="/login" class="button">Log In</a></li>
+          <li><a href="/locationHistory" class="button">History</a></li>
+        </ul>
+      </div>
+      -->
+    </div>
+
+
+  <!--** Login form
+  <div class="box">
+    <h1>Log In</h1>
+    <form action="/login" method="post">
+      <input type="text" name="username" id="username" placeholder="Username" required/>
+      <br>
+      <input type="password" name="password" id="password" placeholder="Password" required/>
+      <br>
+      <input type="submit" class="button" value="Log In"/>
+    </form>
+  </div> ** -->
+  <!-- Login / create account form -->
+    <div class="row" id="content">
+  <div class="medium-8 columns">
+  <div class="left large-10 columns">
+
+  <div class="col" style="margin-right:25%">
+         <div class="well">
+           <form action="/login" method="post" class="form-inline">
+             <p>Log in or create an account.</p>
+             <div class="form-group form-space">
+               <input id="username" name="username" type="text" placeholder="Username" required class="form-control">
+             </div>
+             <div class="form-group form-space">
+               <input id="password" name="password" type="password" placeholder="Password" required class="form-control">
+             </div>
+             <div class="form-group form-more-space">
+               <button id="log-in-btn" type="submit" formaction="/login" class="btn btn-default">Login</button>
+               <button id="new-account-btn" type="submit" formaction="/signup" class="btn btn-default">Create Account</button>
+             </div>
+           </form>
+         </div>
+       </div>
+     </div>
+
+</div>
+</div>
+
+{%if checkUsername%}
+<br>
+<div class="content row">
+  <div class="large-12 columns">
+    <div data-alert class="alert-box error round">
+        <strong><center>Error!</strong></<center> <br> Username already taken.
+      </div>
+    </div>
+  </div>
+  {%endif%}
+
+  {%if users%}
+  <div class="row" id="content">
+<div class="medium-8 columns">
+  <div class="users" style="margin-left:20%">
+    <h2>Succesfully Registered User</h2>
+    <table style="width:100%;">
+      {%for user in users%}
+        <tr>
+          <td>{{user[0]}}</td>
+        </tr>
+      {%endfor%}
+    </table>
+  </div>
+</div>
+</div>
+  {%endif%}
+
+
+
+  <!-- ** Footer ** -->
+  <footer class="footer row">
+    <div class="large-12 columns">
+      <!-- <hr/> -->
+      <div class="row">
+        <div class="large-6 columns">
+          <!-- <p>&copy; Copyright no one at all. Go to town.</p> -->
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>$(document).foundation();</script>
+</body>
+</html>
