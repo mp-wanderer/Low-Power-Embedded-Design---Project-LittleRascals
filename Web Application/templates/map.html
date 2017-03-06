@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<!--[if IE 9]><html class="lt-ie10" lang="en" > <![endif]-->
+<html class="no-js" lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="refresh" content="10">
+  <title>littleRascals</title>
+
+  <!-- ** CSS ** -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.3/css/normalize.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.3/css/foundation.min.css" />
+  <link rel='stylesheet' href="http://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.css" />
+  <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Lato:300,400%7CRaleway:100,400,300,500,600,700%7COpen+Sans:400,500,600' />
+  <link rel='stylesheet' href="../static/index.css" />
+
+  <!-- ** JS ** -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+  <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.3/js/foundation.min.js"></script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBL3SOotmfY64xcFhvLHrbAo59X4d_qDqQ&callback=initMap"></script>
+  <script src="../static/index.js"></script>
+  <script src="https://code.highcharts.com/highcharts.js"></script>
+  <script src="https://code.highcharts.com/highcharts-more.js"></script>
+  <script src="https://code.highcharts.com/modules/solid-gauge.js"></script>
+
+</head>
+
+<body>
+  <!-- ** Header ** -->
+  <div class="header row">
+    <div class="left large-3 columns">
+      <h1><img src="../static/assets/headerLogo.png"></h1>
+      <!-- <h1>littleRascals</h1> -->
+    </div>
+    <div class="right large-9 columns">
+      <ul class="nav button-group right">
+        <li><a href="/map" class="button">Map</a></li>
+        <li><a href="/logout" class="button">Log Out</a></li>
+        <li><a href="/locationHistory" class="button">Location History</a></li>
+      </ul>
+    </div>
+  </div>
+
+  {%if lat%}
+  <!-- ** Map ** -->
+  <div class="content row">
+    <div class="large-12 columns">
+      <div id="map" data-lat={{ lat }} data-lng={{ lng }}></div>
+      <hr>
+    </div>
+  </div>
+  {%endif%}
+
+  {%if bat%}
+  <div class="content row">
+    <div class="large-12 columns">
+  <div style="width: 600px; height: 400px; margin: left auto">
+    <div id="container-speed" color="blue" style="width: 300px; height: 200px; float: left"></div>
+    <div id="container-rpm" style="width: 300px; height: 200px; float: left"></div>
+  </div>
+</div>
+</div>
+  {%endif%}
+
+  {%if emptydB%}
+  <br>
+  <div class="content row">
+    <div class="large-12 columns">
+      <div data-alert class="alert-box warning round">
+          <strong><center>Warning!</strong></<center> <br> No location history to show.
+        </div>
+      </div>
+    </div>
+    {%endif%}
+
+<script>
+  $(function () {
+
+      var gaugeOptions = {
+
+          chart: {
+              type: 'solidgauge',
+              backgroundColor:"#424242"
+          },
+
+          title: null,
+
+          pane: {
+              center: ['50%', '85%'],
+              size: '140%',
+              startAngle: -90,
+              endAngle: 90,
+              background: {
+                  backgroundColor: (Highcharts.theme && Highcharts.theme.background2) || '#EEE',
+                  innerRadius: '60%',
+                  outerRadius: '100%',
+                  shape: 'arc'
+              }
+          },
+
+          tooltip: {
+              enabled: false
+          },
+
+          // the value axis
+          yAxis: {
+              stops: [
+                  [0.1, '#DF5353'], // red
+                  [0.5, '#DDDF0D'], // yellow
+                  [0.9,	'#55BF3B'] // green
+              ],
+              lineWidth: 0,
+              minorTickInterval: null,
+              tickAmount: 2,
+              title: {
+                  y: -70
+              },
+              labels: {
+                  y: 16
+              }
+          },
+
+          plotOptions: {
+              solidgauge: {
+                  dataLabels: {
+                      y: 5,
+                      borderWidth: 0,
+                      useHTML: true
+                  }
+              }
+          }
+      };
+
+
+      // The speed gauge
+      var chartSpeed = Highcharts.chart('container-speed', Highcharts.merge(gaugeOptions, {
+          yAxis: {
+              min: 0,
+              max: 100,
+              title: {
+                  text: 'Battery Status'
+              }
+          },
+
+          credits: {
+              enabled: false
+          },
+
+          series: [{
+              name: 'BatteryStatus',
+              data: [{{ bat }}],
+              dataLabels: {
+                  format: '<div style="text-align:center"><span style="font-size:25px;color:' +
+                      ((Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black') + '">{y}</span><br/>' +
+                         '<span style="font-size:12px;color:black">%</span></div>'
+              },
+              tooltip: {
+                  valueSuffix: ' %'
+              }
+          }]
+
+      }));
+
+
+      // The RPM gauge
+      var chartRpm = Highcharts.chart('container-rpm', Highcharts.merge(gaugeOptions, {
+          yAxis: {
+          		stops: [
+                  [0.1, '#DF5353'], // green
+                  [0.5, '#DDDF0D'], // yellow
+                  [0.9, '#55BF3B'] // red
+              ],
+              min: -120,
+              max: -60,
+              title: {
+                  text: 'Signal Strength'
+              }
+          },
+
+          credits: {
+              enabled: false
+          },
+
+          series: [{
+              name: 'Signal Strength',
+              data: [{{ rssi }}],
+              dataLabels: {
+                  format: '<div style="text-align:center"><span style="font-size:25px;color:' +
+                      ((Highcharts.theme && Highcharts.theme.contrastTextColor) || 'black') + '">{y:.1f}</span><br/>' +
+                         '<span style="font-size:12px;color:black">dB</span></div>'
+              },
+              tooltip: {
+                  valueSuffix: ' dB'
+              }
+          }]
+
+      }));
+
+      // Bring life to the dials
+      setInterval(function () {
+          // Speed
+          var point,
+              newVal,
+              inc;
+
+          if (chartSpeed) {
+              point = chartSpeed.series[0].points[0];
+              newVal = {{ bat }};
+
+              point.update(newVal);
+          }
+
+      if (chartRpm) {
+            point = chartRpm.series[0].points[0];
+            newVal = {{ rssi }};
+            point.update(newVal);
+        }
+    }, 2000);
+  });
+</script>
+
+  <!-- ** Footer ** -->
+  <footer class="footer row">
+    <div class="large-12 columns">
+      <!-- <hr/> -->
+      <div class="row">
+        <div class="large-6 columns">
+          <!-- <p>&copy; Copyright no one at all. Go to town.</p> -->
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>$(document).foundation();</script>
+</body>
+</html>

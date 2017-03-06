@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<!--[if IE 9]><html class="lt-ie10" lang="en" > <![endif]-->
+<html class="no-js" lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>littleRascals</title>
+
+  <!-- ** CSS ** -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.3/css/normalize.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.3/css/foundation.min.css" />
+  <link rel='stylesheet' href="http://cdnjs.cloudflare.com/ajax/libs/foundicons/3.0.0/foundation-icons.css" />
+  <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Lato:300,400%7CRaleway:100,400,300,500,600,700%7COpen+Sans:400,500,600' />
+  <link rel='stylesheet' href="../static/index.css" />
+
+  <!-- ** JS ** -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.8.3/modernizr.min.js"></script>
+  <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/foundation/5.5.3/js/foundation.min.js"></script>
+  <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBL3SOotmfY64xcFhvLHrbAo59X4d_qDqQ&callback=initMap"></script>
+  <script src="../static/index.js"></script>
+</head>
+
+<body>
+  <!-- ** Header ** -->
+  <div class="header row">
+    <div class="left large-3 columns">
+      <h1><img src="../static/assets/headerLogo.png"></h1>
+      <!-- <h1>littleRascals</h1> -->
+    </div>
+    <div class="right large-9 columns">
+      <ul class="nav button-group right">
+        <li><a href="/map" class="button">Map</a></li>
+        <li><a href="/logout" class="button">Log Out</a></li>
+        <li><a href="/clearHistory" class="button">Clear History</a></li>
+      </ul>
+    </div>
+  </div>
+
+  <!-- ** Table ** -->
+
+  {%if locationHistory %}
+  <div class="content row">
+    <div class="large-12 columns">
+        <div class = "table">
+        <table class="table table-striped">
+          <caption> Location History </caption>
+          <tr>
+          <th>No.</th>
+          <th>Longitude</th>
+          <th>Latitude</th>
+          <th>Timestamp</th>
+        </tr>
+        {% for row in locationHistory %}
+        <tr>
+          <td>{{row[0]}} </td>
+          <td>{{row[1]}} </td>
+          <td>{{row[2]}} </td>
+          <td>{{row[3]}}</td>
+        </tr>
+        {% endfor %}
+      </table>
+        </div>
+        {% endif %}
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="large-4 columns">
+
+      </div>
+
+      <div class="large-4 columns">
+
+      </div>
+
+      <div class="large-4 columns">
+
+      </div>
+    </div>
+
+    {%if clearHistory %}
+    <br>
+
+    <div class="content row">
+      <div class="large-12 columns">
+        <div data-alert class="alert-box success round">
+            <strong><center>Success!</strong></<center> <br> Location History has been successfully cleared.
+          </div>
+        </div>
+      </div>
+      {% endif %}
+
+  <!-- ** Footer ** -->
+  <footer class="footer row">
+    <div class="large-12 columns">
+      <!-- <hr/> -->
+      <div class="row">
+        <div class="large-6 columns">
+          <!-- <p>&copy; Copyright no one at all. Go to town.</p> -->
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>$(document).foundation();</script>
+</body>
+</html>
