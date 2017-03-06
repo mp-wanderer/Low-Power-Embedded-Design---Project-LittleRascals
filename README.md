@@ -1,2 +1,2 @@
 # Low-Power-Embedded-Design---Project-LittleRascals
-![alt tag](https://drive.google.com/open?id=0Bz_GXpoGYkJYOEc4UEFYUFFzVHc)
+![alt tag](https://github.com/berliarishabh/Low-Power-Embedded-Design---Project-LittleRascals/blob/master/Images/Web%20App.png?raw=true)
